@@ -15,13 +15,13 @@ const routes : Routes = [
 
       { path: 'dashboard', component: DashboardComponent},
       { path: 'progress', component: ProgressComponent},
-      { path: 'register', component: RegisterComponent},
+      { path: 'grafica1', component: Grafica1Component},
       { path: '', redirectTo: '/dashboard', pathMatch: 'full'},
     ]
   },
 
   { path: 'login', component: LoginComponent},
-  { path: 'grafica1', component: Grafica1Component},
+  { path: 'register', component: RegisterComponent},
 
   { path: '**', component: NopagefoundComponent}
 ]
