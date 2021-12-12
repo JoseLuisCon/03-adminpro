@@ -1,1 +1,30 @@
-<p>grafica1 works!</p>
+
+<div class="row">
+  <div class="col-6">
+    <div style="display: block">
+      <app-dona tituloGrafico="Accidentes"
+                [data]="data"
+                ></app-dona>
+    </div>
+  </div>
+  <div class="col-6">
+    <div style="display: block">
+      <app-dona tituloGrafico="Atropellos"
+              [data]="data"
+                ></app-dona>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div style="display: block">
+      <app-dona tituloGrafico="Bajas"></app-dona>
+    </div>
+  </div>
+  <div class="col-6">
+    <div style="display: block">
+      <app-dona tipoGrafico="doughnut"
+                [data]="data" ></app-dona>
+    </div>
+  </div>
+</div>
