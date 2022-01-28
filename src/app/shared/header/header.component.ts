@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from '../../services/usuario.service';
 import { Router } from '@angular/router';
+import { Usuario } from '../../models/usuario.model';
 
 @Component({
   selector: 'app-header',
@@ -10,13 +11,22 @@ import { Router } from '@angular/router';
 })
 export class HeaderComponent {
 
-  constructor(private ususarioService: UsuarioService,
-              private router: Router) { }
+  public usuario: any;
+
+  constructor(private usuarioService: UsuarioService,
+              private router: Router) {
+
+                // console.log(usuarioService.usuario?.imagenUrl);
+                this.usuario = usuarioService.usuario;
+
+               }
+
+
 
 
 
   logout(){
-    this.ususarioService.logout();
+    this.usuarioService.logout();
     this.router.navigateByUrl('/login');
   }
 }

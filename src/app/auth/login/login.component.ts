@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { UsuarioService } from '../../services/usuario.service';
 
 import Swal from 'sweetalert2';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 declare const gapi: any;
 
@@ -66,9 +65,7 @@ export class LoginComponent implements OnInit {
   }
 
 
-  onFailure(error: Error) {
-    console.log(error);
-  }
+
 
   renderButton() {
     gapi.signin2.render('my-signin2', {
@@ -94,10 +91,13 @@ export class LoginComponent implements OnInit {
     this.auth2.attachClickHandler(element, {},
         (googleUser:any)=> {
           const id_token = googleUser.getAuthResponse().id_token;
-          this.servicioUsuario.loginGoogle(id_token).subscribe(
-            resp =>
+          
+          this.servicioUsuario.loginGoogle(id_token)
+          .subscribe( resp =>
             this.ngZone.run(()=> {
+              console.log('entramos en run navigator');
               this.router.navigateByUrl('/dashboard')
+
             })
 
           );

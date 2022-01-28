@@ -11,8 +11,9 @@ import { Grafica1Component } from './grafica1/grafica1.component';
 import { PagesComponent } from './pages.component';
 import { ProgressComponent } from './progress/progress.component';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
+import { PerfilComponent } from './perfil/perfil.component';
 
 
 
@@ -22,13 +23,15 @@ import { AcountSettingsComponent } from './acount-settings/acount-settings.compo
     ProgressComponent,
     Grafica1Component,
     PagesComponent,
-    AcountSettingsComponent
+    AcountSettingsComponent,
+    PerfilComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
     RouterModule,
     FormsModule,
+    ReactiveFormsModule,
     ComponentsModule,
     NgChartsModule
   ],exports:[

@@ -1,0 +1,61 @@
+<div class="row">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Mi perfil de usuario</h4>
+        <h6 class="card-subtitle">Ajustes</h6>
+        <form class="form p-t-20"
+              (submit)="actualizarPerfil()"
+              [formGroup]="perfilUser">
+          <div class="form-group">
+            <label for="exampleInputuname">Usuario</label>
+            <div class="input-group">
+              <div class="input-group-addon"><i class="ti-user"></i></div>
+              <input type="text" formControlName="nombre" class="form-control" id="exampleInputuname" placeholder="Nombre del usuario">
+            </div>
+          </div>
+          <div class="form-group" >
+            <label for="exampleInputEmail1">Dirección de e-correo</label>
+            <div class="input-group">
+              <div class="input-group-addon" ><i class="ti-email"></i></div>
+              <input type="email"
+                     formControlName="email"
+                     class="form-control"
+                     id="exampleInputEmail1"
+                     placeholder="Email"
+                     [readOnly]="usuario?.google"
+                     >
+            </div>
+          </div>
+
+          <button [disabled]="perfilUser.invalid" type="submit" class="btn btn-success btn-block waves-effect waves-light m-r-10"><i class="fa fa-save">
+              Guardar cambios</i></button>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="card-title">Avatar</h4>
+        <h6 class="card-subtitle">Imagen del usuario</h6>
+
+        <div class="img-container">
+          <img *ngIf="!imgTemp"[src]="usuario?.imagenUrl" alt="Foto perfil" class="img-avatar">
+          <img *ngIf="imgTemp" [src]="imgTemp" alt="Foto perfil" class="img-avatar">
+        </div>
+
+        <input type="file" id='input-file' (change)="cambiarImagen($event)">
+
+
+        <button type="button"
+                class="btn btn-success btn-block waves-effect waves-light m-t-10"
+                [disabled]="!imagenSubir"
+                (click)="subirImagen()">
+                <i class="fa fa-save">
+            Cambiar imagen</i></button>
+
+      </div>
+    </div>
+  </div>
+</div>

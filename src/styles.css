@@ -20,3 +20,21 @@
 
   text-align: center;
 }
+
+.img-container{
+  width: 100%;
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+}
+
+
+
+.img-avatar{
+  width: 200px;
+  height: 200px;
+
+}
+
