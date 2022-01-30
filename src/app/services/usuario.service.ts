@@ -1,12 +1,16 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
-import { RegisterForm } from '../interfaces/register-form.interface';
 import { environment } from '../../environments/environment.prod';
-import { LoginForm } from '../interfaces/login-form.interface';
-import { catchError, map, tap } from 'rxjs/operators';
+import { Router} from '@angular/router';
+
 import { Observable, of } from 'rxjs';
-import { Router, UrlTree } from '@angular/router';
+import { catchError, map, tap } from 'rxjs/operators';
+
 import { Usuario } from '../models/usuario.model';
+import { RegisterForm } from '../interfaces/register-form.interface';
+import { LoginForm } from '../interfaces/login-form.interface';
+
+
 
 const base_url = environment.base_url;
 declare const gapi: any;
@@ -18,12 +22,35 @@ export class UsuarioService {
   public auth2: any;
   public usuario? : Usuario ;
 
+
+
   constructor(
     private http: HttpClient,
     private router: Router,
     private ngZone: NgZone
   ) {
     this.googleInit();
+  }
+
+  //Mantenimientos
+
+  cargarUsuarios(desde: number = 0) {
+
+    return this.http.get<{total:number, usuarios: Usuario[]}>(`${base_url}/usuarios?desde=${desde}`, this.headersWhitToken )
+          .pipe(
+            map(
+              resp => {
+                const usuarios = resp.usuarios.map(
+                     user => new Usuario (user.nombre,user.email,'',user.img,user.google,user.role,user.uid)
+
+                )
+              return {
+                    usuarios,
+                    total: resp.total
+                  };
+             } )
+          );
+
   }
 
   googleInit() {
@@ -54,23 +81,22 @@ export class UsuarioService {
     return this.usuario?.uid || '';
 
   }
-  get token():string {
+  get token(): string {
     return localStorage.getItem('token') || '';
-   }
+  }
 
-
-
+  get headersWhitToken() : Object {
+    return {
+      headers: {'x-token': this.token}
+    }
+  }
 
 
   validarToken():Observable<boolean> {
 
 
     return this.http
-      .get(`${base_url}/login/renew`, {
-        headers: {
-          'x-token': this.token,
-        },
-      })
+      .get(`${base_url}/login/renew`, this.headersWhitToken)
       .pipe(
         map((resp: any) => {
           const {nombre, email, img, role, google, uid} = resp.usuario;
@@ -112,17 +138,27 @@ export class UsuarioService {
     );
   }
 
+  eliminarUsuario( usuario: Usuario)
+  {
+
+    const url = `${base_url}/usuarios/${usuario.uid}`
+    return this.http.delete(url, this.headersWhitToken)
+
+
+  }
+
   actualizarPerfil(data: {email: string, nombre: string, role?: string})
   {
     data = {
       ...data,
       role: this.usuario?.role
     }
+    return this.http.put(`${base_url}/usuarios/${this.uid}`,data, this.headersWhitToken )
+  }
 
-    return this.http.put(`${base_url}/usuarios/${this.uid}`,data,
-                          {
-                            headers: {'x-token': this.token}
-                          }
-                        )
+
+  guardarUsuario( usuario: Usuario)
+  {
+    return this.http.put(`${base_url}/usuarios/${usuario.uid}`,usuario, this.headersWhitToken )
   }
 }

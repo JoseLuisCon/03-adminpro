@@ -14,6 +14,7 @@ import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AcountSettingsComponent } from './acount-settings/acount-settings.component';
 import { PerfilComponent } from './perfil/perfil.component';
+import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
 
 
 
@@ -24,7 +25,8 @@ import { PerfilComponent } from './perfil/perfil.component';
     Grafica1Component,
     PagesComponent,
     AcountSettingsComponent,
-    PerfilComponent
+    PerfilComponent,
+    UsuariosComponent
   ],
   imports: [
     CommonModule,
